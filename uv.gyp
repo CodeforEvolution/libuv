@@ -171,7 +171,7 @@
               [ 'OS=="os390" and uv_library=="shared_library"', {
                 'ldflags': [ '-Wl,DLL' ],
               }],
-              ['OS != "solaris" and OS != "android" and OS != "os390"', {
+              ['OS != "solaris" and OS != "android" and OS != "os390" and OS != "haiku"', {
                 'ldflags': [ '-pthread' ],
               }],
             ],
@@ -324,6 +324,19 @@
             'src/unix/os390-syscalls.c'
           ]
         }],
+        ['OS=="haiku"', {
+          'sources': [
+            'src/unix/bsd-ifaddrs.c',
+            'src/unix/haiku.cpp',
+            'src/unix/no-fsevents.c',
+            'src/unix/no-proctitle.c',
+            'src/unix/posix-hrtime.c',
+            'src/unix/posix-poll.c'
+          ],
+          'defines': [
+            '_BSD_SOURCE',
+          ]
+        }] 
       ]
     },
 

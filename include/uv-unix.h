@@ -60,7 +60,9 @@
       defined(__OpenBSD__)         || \
       defined(__NetBSD__)
 # include "uv-bsd.h"
-#elif defined(__CYGWIN__) || defined(__MSYS__)
+#elif defined(__CYGWIN__)          || \
+      defined(__MSYS__)            || \
+      defined(__HAIKU__)
 # include "uv-posix.h"
 #endif
 

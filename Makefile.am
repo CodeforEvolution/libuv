@@ -456,6 +456,16 @@ libuv_la_SOURCES += src/unix/pthread-fixes.c \
                     src/unix/proctitle.c
 endif
 
+if HAIKU
+libuv_la_CFLAGS += -D_BSD_SOURCE
+libuv_la_SOURCES += src/unix/bsd-ifaddrs.c \
+                    src/unix/haiku.cpp \
+                    src/unix/no-fsevents.c \
+                    src/unix/no-proctitle.c \
+                    src/unix/posix-hrtime.c \
+                    src/unix/posix-poll.c
+endif
+
 if HAVE_PKG_CONFIG
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = @PACKAGE_NAME@.pc

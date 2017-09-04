@@ -25,10 +25,19 @@
 #include <errno.h>
 #include <stddef.h>
 
+#if !defined(__HAIKU__)
 #include <ifaddrs.h>
+#else
+#include <bsd/ifaddrs.h>
+#endif
+
 #include <net/if.h>
 #if !defined(__CYGWIN__) && !defined(__MSYS__)
 #include <net/if_dl.h>
+#endif
+
+#ifndef IFF_RUNNING
+#define IFF_RUNNING 0x0001 
 #endif
 
 static int uv__ifaddr_exclude(struct ifaddrs *ent) {
@@ -36,7 +45,7 @@ static int uv__ifaddr_exclude(struct ifaddrs *ent) {
     return 1;
   if (ent->ifa_addr == NULL)
     return 1;
-#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__HAIKU__)
   /*
    * On BSD getifaddrs returns information related to the raw underlying
    * devices.  We're not interested in this information.
